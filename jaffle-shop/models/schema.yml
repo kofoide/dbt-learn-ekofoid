@@ -1,0 +1,41 @@
+version: 2
+models:
+  - name: customers
+    description: '{{doc("customers")}}'
+    columns:
+      - name: customer_id
+        description: Primary Key
+        tests:
+          - unique
+          - not_null
+      - name: first_order_date
+        description: NULL when a customer has not placed an order yet
+
+  - name: stg_customers
+    description: Clean up the Customer data
+    columns:
+      - name: customer_id
+        description: Pimary Key
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_orders
+    description: Clean up the Order data
+    columns:
+      - name: order_id
+        description: Pimary key
+        tests:
+          - unique
+          - not_null
+      - name: status
+        tests:
+          - accepted_values:
+              values: ['placed', 'shipped', 'completed', 'return_pending', 'returned']
+      - name: customer_id
+        description: Foreign Key to Customer record
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_customers')
+              field: customer_id
