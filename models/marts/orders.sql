@@ -18,4 +18,4 @@ LEFT JOIN   Payments    P USING (order_id)
 GROUP BY
     O.order_id
 ,   O.customer_id
-,   O.order_date
+,   O.order_date`

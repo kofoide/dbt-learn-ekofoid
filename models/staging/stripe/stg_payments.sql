@@ -4,4 +4,6 @@ SELECT
 ,   "paymentMethod" AS payment_method
 ,   AMOUNT AS amount
 ,   CREATED AS created_date
-FROM raw.stripe.payment
+,   _BATCHED_AT
+
+FROM {{ source('stripe', 'payment') }}   

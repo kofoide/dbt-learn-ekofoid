@@ -1,7 +1,29 @@
 version: 2
+
+sources:
+  - name: stripe
+    database: raw
+    schema: stripe
+    tables:
+      - name: payment
+        loaded_at_field: _batched_at
+        freshness:
+          warn_after: {count: 1, period: minute}
+        columns:
+          - name: ID
+            tests:
+              - unique
+
+  - name: jaffle
+    database: raw
+    schema: jaffle_shop
+    tables:
+      - name: orders
+      - name: customers
+
 models:
   - name: customers
-    description: '{{doc("customers")}}'
+    description: '{{ doc("customers") }}'
     columns:
       - name: customer_id
         description: Primary Key

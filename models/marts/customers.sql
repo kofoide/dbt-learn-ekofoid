@@ -2,10 +2,12 @@ WITH Customers AS (
     SELECT *
     FROM {{ ref('stg_customers') }}
 ),
+
 Orders AS (
     SELECT *
-    FROM {{ ref('orders')}}
+    FROM {{ ref('orders') }}
 ),
+
 CustomerOrders AS (
     SELECT
         customer_id,
@@ -17,6 +19,7 @@ CustomerOrders AS (
     GROUP BY
         customer_id
 )
+
 SELECT
     C.customer_id,
     C.first_name,
